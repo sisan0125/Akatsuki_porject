@@ -1,0 +1,118 @@
+﻿@model PagedList.IPagedList<WMS.Models.POM>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "採購單主頁";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    .border-th {
+        border: 1px solid black;
+    }
+</style>
+
+<body style="background-color: PowderBlue; ">
+
+</body>
+
+<h2>採購單</h2>
+<p>@Html.ActionLink("創建採購單", "Create") | @Html.ActionLink("返回首頁", "ContentsIndex", "Home")</p>
+
+<table class="table">
+    <tr>
+        <th style="border: 1px solid black;">
+            採購單編號
+        </th>
+        <th style="border: 1px solid black;">
+            商品名稱
+        </th>
+        <th style="border: 1px solid black;">
+            供應商名稱
+        </th>
+
+        <th style="border: 1px solid black;">
+            採購日期
+        </th>
+        <th style="border: 1px solid black;">
+            付款日期
+        </th>
+        <th style="border: 1px solid black;">
+            付款方式
+        </th>
+        <th style="border: 1px solid black;">
+            採購單價
+        </th>
+        <th style="border: 1px solid black;">
+            採購數量
+        </th>
+        <th style="border: 1px solid black;">
+            總金額
+        </th>
+        <th style="border: 1px solid black;">
+            進度
+        </th>
+        <th style="border: 1px solid black;">
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td class="border-th" style="text-align: center;">
+        @Html.DisplayFor(modelItem => item.POID)
+    </td>
+    <td class="border-th">
+        @Html.DisplayFor(modelItem => item.POD.Products.Name)
+    </td>
+    <td class="border-th">
+        @Html.DisplayFor(modelItem => item.Suppliers.Name)
+    </td>
+
+    <td class="border-th">
+        @item.Date.ToString("yyyy/MM/dd")
+    </td>
+    <td class="border-th">
+        
+    </td>
+    <td class="border-th">
+        @Html.DisplayFor(modelItem => item.Payment.Term)
+    </td>
+    <td class="border-th" style="text-align: right;">
+        @string.Format("{0:N0}", item.POD.Price)
+    </td>
+    <td class="border-th" style="text-align: right;">
+        @string.Format("{0:N0}", item.POD.Qty)
+    </td>
+    <td class="border-th" style="text-align: right;">
+        @string.Format("{0:N0}", item.TAMT)
+    </td>
+    <td class="border-th">
+        @if (item.IsCompleted)
+        {
+            <span>已完成</span>
+        }
+        else
+        {
+            <span>尚未進貨</span>
+        }
+    </td>
+    <td class="border-th">
+        @Html.ActionLink("刪除", "Delete", new { id = item.POID }, new { onclick = "return confirm('確定要刪除嗎')" })
+    </td>
+</tr>
+    }
+
+</table>
+
+<div class="pagination-container">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

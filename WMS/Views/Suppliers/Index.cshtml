@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WMS.Models.Suppliers>
+
+@{
+    ViewBag.Title = "供應商";
+}
+
+<body style="background-color: PowderBlue; ">
+</body>
+
+<h2>供應商</h2>
+<p>@Html.ActionLink("新增供應商", "Create") | @Html.ActionLink("返回首頁", "ContentsIndex", "Home")</p>
+<table class="table">
+    <tr>
+        <th style="border: 1px solid black;">
+            編號
+        </th>
+        <th style="border: 1px solid black;">
+            名稱
+        </th>
+        <th style="border: 1px solid black;">
+            簡稱
+        </th>
+        <th style="border: 1px solid black;">
+            地址
+        </th>
+        <th style="border: 1px solid black;">
+            電話
+        </th>
+        <th style="border: 1px solid black;">
+            統一編號
+        </th>
+        <th style="border: 1px solid black;">
+            聯絡人
+        </th>
+        <th style="border: 1px solid black;">
+            聯絡人電話
+        </th>
+        <th style="border: 1px solid black;">
+            負責人
+        </th>
+        <th style="border: 1px solid black;"></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="border: 1px solid black;">
+                @Html.DisplayFor(modelItem => item.SUID)
+            </td>
+            <td style="border: 1px solid black;">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td style="border: 1px solid black;">
+                @Html.DisplayFor(modelItem => item.Abbreviation)
+            </td>
+            <td style="border: 1px solid black;">
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td style="border: 1px solid black;">
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td style="border: 1px solid black;">
+                @Html.DisplayFor(modelItem => item.VAT)
+            </td>
+            <td style="border: 1px solid black;">
+                @Html.DisplayFor(modelItem => item.CP)
+            </td>
+            <td style="border: 1px solid black;">
+                @Html.DisplayFor(modelItem => item.CPphone)
+            </td>
+            <td style="border: 1px solid black;">
+                @Html.DisplayFor(modelItem => item.PIC)
+            </td>
+            <td style="border: 1px solid black;">
+                @Html.ActionLink("編輯", "Edit", new { id = item.SUID }) |
+                @Html.ActionLink("刪除", "Delete", new { id = item.SUID }, new { onclick = "return confirm('確定要刪除嗎')" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,148 @@
+﻿@model WMS.Models.SOM
+
+@{
+    ViewBag.Title = "創建訂單";
+}
+
+<body style="background-color: PowderBlue; ">
+    <h2>創建出貨訂單</h2>
+    <div>@Html.ActionLink("返回訂單主頁", "Index")</div>
+
+    @using (Html.BeginForm("Create", "SOM", new { SelectedCustomerId = ViewBag.SelectedCustomerId }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            <div class="form-group">
+                <label class="control-label col-md-2">出貨訂單編號</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SOID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SOID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                var CUID = (string)Session["CustomerID"];
+                var customerName = "";
+                switch (CUID)
+                {
+                    case "001":
+                        customerName = "旺來超市連鎖店";
+                        break;
+                    case "002":
+                        customerName = "品味家居百貨有限公司";
+                        break;
+                    case "003":
+                        customerName = "星光文具有限公司";
+                        break;
+                    case "004":
+                        customerName = "美食家便利商店";
+                        break;
+                    case "005":
+                        customerName = "美麗生活百貨公司";
+                        break;
+                    case "006":
+                        customerName = "綠意生活文具店";
+                        break;
+                    case "007":
+                        customerName = "品味生活超市";
+                        break;
+                    case "008":
+                        customerName = "五金樂園百貨公司";
+                        break;
+                    default:
+                        break;
+                }
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">客戶</label>
+                    <div class="col-md-10">
+                        @customerName
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label class="control-label col-md-2">客戶</label>
+                    <div class="col-md-10">
+                        <select id="CUID" name="CUID" class="form-control">
+                            <option value="001">旺來超市連鎖店</option>
+                            <option value="002">品味家居百貨有限公司</option>
+                            <option value="003">星光文具有限公司</option>
+                            <option value="004">美食家便利商店</option>
+                            <option value="005">美麗生活百貨公司</option>
+                            <option value="006">綠意生活文具店</option>
+                            <option value="007">品味生活超市</option>
+                            <option value="008">五金樂園百貨公司</option>
+                        </select>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                <label class="control-label col-md-2">客戶訂貨日</label>
+                <div class="col-md-10">
+                    @{
+                        DateTime today = DateTime.Today;
+                        string formattedToday = today.ToString("yyyy-MM-dd");
+                    }
+                    <input type="date" class="form-control" id="Date" name="Date" value="@formattedToday" required="required" />
+                    @Html.ValidationMessage("Date", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">付款方式</label>
+                <div class="col-md-10">
+                    <select id="PMID" name="PMID" class="form-control">
+                        <option value="01">匯款</option>
+                        <option value="02">支票</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">出貨日</label>
+                <div class="col-md-10">
+                    <input type="date" class="form-control" id="EDL" name="EDL" value="@formattedToday" required="required" />
+                    @Html.ValidationMessage("EDL", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">商品編號</label>
+                <div class="col-md-10">
+                    @Html.Editor("PID", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("PID", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">訂購單價</label>
+                <div class="col-md-10">
+                    @Html.Editor("Price", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("Price", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">訂購數量</label>
+                <div class="col-md-10">
+                    @Html.Editor("Qty", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("Qty", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="確認" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="SelectedCustomerId" value="@ViewBag.SelectedCustomerId" />
+    }
+</body>

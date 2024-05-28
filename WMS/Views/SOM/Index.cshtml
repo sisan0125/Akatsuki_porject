@@ -1,0 +1,147 @@
+﻿@model PagedList.IPagedList<WMS.Models.SOM>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "訂單主頁";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    .border-th {
+        border: 1px solid black;
+    }
+</style>
+<body style="background-color: PowderBlue; ">
+
+    <h2>訂單</h2>
+    <div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form id="logoutForm" action="@Url.Action("Logout", "Login")" method="post" onsubmit="return confirmAndLogout('確定要登出嗎？')">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-link">登出</button>
+            </form>
+        }
+        @Html.ActionLink("創建訂單", "Create") |
+        @Html.ActionLink("返回首頁", "ContentsIndex", "Home") |
+        @if (!User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("登入", "Index", "Login")
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewBag.CustomerName))
+    {
+        <p>目前使用者：@ViewBag.CustomerName</p>
+    }
+
+
+    <table class="table">
+        <tr>
+            <th style="border: 1px solid black;">
+                訂單編號
+            </th>
+            <th style="border: 1px solid black;">
+                客戶名稱
+            </th>
+            <th style="border: 1px solid black;">
+                商品名稱
+            </th>
+            <th style="border: 1px solid black;">
+                客戶訂貨日
+            </th>
+            <th style="border: 1px solid black;">
+                出貨日
+            </th>
+            <th style="border: 1px solid black;">
+                客戶收貨地址
+            </th>
+            <th style="border: 1px solid black;">
+                付款方式
+            </th>
+            <th style="border: 1px solid black;">
+                訂購單價
+            </th>
+            <th style="border: 1px solid black;">
+                訂購數量
+            </th>
+            <th style="border: 1px solid black;">
+                總金額
+            </th>
+            <th style="border: 1px solid black;">
+                狀態
+            </th>
+            <th style="border: 1px solid black;"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td class="border-th" style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.SOID)
+        </td>
+
+        <td class="border-th">
+            @Html.DisplayFor(modelItem => item.Customers.Name)
+        </td>
+        <td class="border-th">
+            @Html.DisplayFor(modelItem => item.SOD.Products.Name)
+        </td>
+        <td class="border-th">
+            @item.Date.ToString("yyyy/MM/dd")
+        </td>
+        <td class="border-th">
+            @item.EDL.ToString("yyyy/MM/dd")
+        </td>
+        <td class="border-th">
+            @Html.DisplayFor(modelItem => item.Customers.ReceiptAddress)
+        </td>
+        <td class="border-th">
+            @Html.DisplayFor(modelItem => item.Payment.Term)
+        </td>
+        <td class="border-th" style="text-align: right;">
+            @string.Format("{0:N0}", item.SOD.Price)
+        </td>
+        <td class="border-th" style="text-align: right;">
+            @string.Format("{0:N0}", item.SOD.Qty)
+        </td>
+        <td class="border-th" style="text-align: right;">
+            @string.Format("{0:N0}", item.SOD.Qty * item.SOD.Price)
+        </td>
+        <td class="border-th" style="text-align: right;">
+            @if (item.IsCompleted)
+            {
+                <span>已出貨</span>
+            }
+            else
+            {
+                <span>尚未出貨</span>
+            }
+        </td>
+        <td class="border-th" style="text-align: right;">
+            @if (item.IsCompleted)
+            {
+                <span>已完成</span>
+            }
+            else
+            {
+                <span>@Html.ActionLink("取消訂單", "Delete", new { id = item.SOID })</span>
+            }
+        </td>
+    </tr>
+        }
+    </table>
+
+    <div class="pagination-container">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</body>

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WMS.Models.StorageProduct>
+
+@{
+    ViewBag.Title = "貨架商品";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+
+
+    .border-th {
+        border: 1px solid black;
+    }
+</style>
+
+<body style="background-color: PowderBlue; ">
+
+</body>
+
+<h2>貨架商品</h2>
+<p>@Html.ActionLink("返回首頁", "ContentsIndex", "Home")</p>
+
+@using (Html.BeginForm("Index", "StorageProduct", FormMethod.Get))
+{
+    <p>
+        搜尋: @Html.TextBox("searchString")
+        <input type="submit" value="搜尋" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th style="border: 1px solid black;">
+            貨架名稱
+        </th>
+        <th style="border: 1px solid black;">
+            商品名稱
+        </th>
+        <th style="border: 1px solid black;">
+            商品庫存
+        </th>
+        <th style="border: 1px solid black;">
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.SID)
+            </td>
+            <td class="border-th">
+                @if (item.Products == null || string.IsNullOrEmpty(item.Products.Name))
+                {
+                    <text>目前無商品資料</text>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Products.Name)
+                }
+            </td>
+            <td class="border-th">
+                @if (item.Qty == null)
+                {
+                    <text>目前無庫存</text>
+                }
+                else
+                {
+                    <p class="text-nowrap">@Convert.ToInt32(item.Qty)</p>
+                }
+            </td>
+            <td class="border-th">
+                @Html.ActionLink("編輯", "Edit", new { id = item.SID }) |
+                @Html.ActionLink("刪除", "Delete", new { id = item.SID }, new { onclick = "return confirm('確定要刪除嗎?')" })
+
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WMS.Models.Import>
+
+@{
+    ViewBag.Title = "進貨";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th style="border: 1px solid black;">
+            進貨編號
+        </th>
+        <th style="border: 1px solid black;">
+            商品名稱
+        </th>
+        <th style="border: 1px solid black;">
+            數量
+        </th>
+        <th style="border: 1px solid black;">
+            進貨日期
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IMID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.POD.Products.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.POD.Qty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bDate)
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,130 @@
+﻿@model IEnumerable<WMS.Models.Products>
+
+@{
+    ViewBag.Title = "商品列表";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid black;
+    }
+</style>
+
+<body style="background-color: PowderBlue; ">
+
+</body>
+
+<h2>商品列表</h2>
+<p>@Html.ActionLink("新增商品", "Create") | @Html.ActionLink("返回首頁", "ContentsIndex", "Home")</p>
+
+@using (Html.BeginForm("Index", "Products", FormMethod.Get, new { id = "filterForm" }))
+{
+    <h2>
+        @Html.DropDownList("SelectedCategoryId", ViewBag.CategoryList as SelectList, "全部商品", new { @class = "form-control", onchange = "submitForm(); onProductSelect();" })
+    </h2>
+}
+
+<script>
+    function submitForm() {
+        document.getElementById("filterForm").submit();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var lowStockElements = document.querySelectorAll('.low-stock-alert');
+        lowStockElements.forEach(function (element) {
+            var itemName = element.getAttribute('data-name');
+            alert('注意：' + itemName + ' 的庫存量低於安全庫存量！');
+        });
+    });
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+<table class="table">
+    <tr>
+        <th style="border: 1px solid black;">
+            <p class="text-nowrap">圖片</p>
+        </th>
+        <th style="border: 1px solid black;">
+            <p class="text-nowrap">商品名稱</p>
+        </th>
+        <th style="border: 1px solid black;">
+            <p class="text-nowrap">商品類別</p>
+        </th>
+        <th style="border: 1px solid black;">
+            <p class="text-nowrap">商品介紹</p>
+        </th>
+        <th style="border: 1px solid black;">
+            <p class="text-nowrap">商品規格</p>
+        </th>
+        <th style="border: 1px solid black;">
+            <p class="text-nowrap">商品價格</p>
+        </th>
+        <th style="border: 1px solid black;">
+            <p class="text-nowrap">商品總庫存</p>
+        </th>
+        <th style="border: 1px solid black;">
+            <p class="text-nowrap">安全庫存量</p>
+        </th>
+        <th style="border: 1px solid black;">
+            <p class="text-nowrap">庫存量警示</p>
+        </th>
+        <th style="border: 1px solid black;"></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        string ImagesSrc = item.PID + ".jpg";
+        <tr>
+            <td>
+                <a data-fancybox="gallery" href="~/Images/@ImagesSrc" data-lightbox="image-group"></a>
+                    <img src="~/Images/@ImagesSrc" width="100" />
+            </td>
+            <td>
+                <p class="text-nowrap">@Html.DisplayFor(modelItem => item.Name)</p>
+            </td>
+            <td>
+                <p class="text-nowrap">@Html.DisplayFor(model => item.Categories.Name)</p>
+            </td>
+            <td>
+                <p class="text-nowrap">@Html.DisplayFor(modelItem => item.Description)</p>
+            </td>
+            <td>
+                <p class="text-nowrap">@Html.DisplayFor(modelItem => item.Adescription)</p>
+            </td>
+            <td class="border-th" style="text-align: right;">
+                <p class="text-nowrap"> @string.Format("{0:N0}", item.Price)</p>
+            </td>
+            <td class="border-th" style="text-align: right;">
+                <p class="text-nowrap"> @string.Format("{0:N0}", item.Qty)</p>
+            </td>
+            <td class="border-th" style="text-align: right;">
+                <p class="text-nowrap">@Math.Round(item.SafeQty)</p>
+            </td>
+            <td>
+                @{
+                    string imgSrc = item.Qty < item.SafeQty ? Url.Content("~/Images/Red.JPG") : Url.Content("~/Images/Green.JPG");
+                }
+                <a href="javascript:void(0)" data-lightbox="image-group">
+                    <img src="@imgSrc" width="30" />
+                </a>
+            </td>
+
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.PID }) |
+                @Html.ActionLink("刪除", "Delete", new { id = item.PID }, new { onclick = "return confirm('確定要刪除嗎')" }) |
+                @Html.ActionLink("產生採購單", "Create", "POM", new { PID = item.PID, Price = item.Price, Qty = item.Qty }, null)
+            </td>
+        </tr>
+    }
+</table>

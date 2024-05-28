@@ -1,0 +1,130 @@
+﻿@model WMS.Models.POM
+
+@{
+    ViewBag.Title = "創建採購單";
+    var productData = TempData["ProductDataForPOM"] as WMS.Models.Products;
+    string formattedToday = DateTime.Today.ToString("yyyy-MM-dd");
+}
+
+<body style="background-color: PowderBlue; ">
+</body>
+
+<h2>創建採購單</h2>
+<p>@Html.ActionLink("返回採購單主頁", "Index")</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group">
+        <label class="control-label col-md-2">採購單編號</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.POID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.POID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">供應商</label>
+        <div class="col-md-10">
+            <select id="SUID" name="SUID" class="form-control">
+                <option value="001">飲品天堂有限公司</option>
+                <option value="002">茶葉快樂進口商</option>
+                <option value="003">美食樂趣食品有限公司</option>
+                <option value="004">美味口福食品進口商</option>
+                <option value="005">家居寶物有限公司</option>
+                <option value="006">生活樂趣用品進口商</option>
+                <option value="007">創意筆記本有限公司</option>
+                <option value="008">寫作樂趣文具進口商</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">下單日期</label>
+        <div class="col-md-10">
+            <input type="date" class="form-control" id="Date" name="Date" value="@formattedToday" required="required" />
+            @Html.ValidationMessage("Date", "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">付款方式</label>
+        <div class="col-md-10">
+            <select id="PMID" name="PMID" class="form-control">
+                <option value="01">匯款</option>
+                <option value="02">支票</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">付款日期</label>
+        <div class="col-md-10">
+            <input type="date" class="form-control" id="Paydate" name="Paydate" value="@formattedToday" required="required" />
+            @Html.ValidationMessage("Paydate", "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @if (productData != null)
+    {
+        <div class="form-group">
+            <label class="control-label col-md-2">商品編號</label>
+            <div class="col-md-10">
+                @Html.TextBox("PID", productData.PID, new { @class = "form-control" })
+                @Html.ValidationMessage("PID", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">訂購單價</label>
+            <div class="col-md-10">
+                @Html.TextBox("Price", productData.Price.ToString(), new { @class = "form-control" })
+                @Html.ValidationMessage("Price", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">訂購數量</label>
+            <div class="col-md-10">
+                @Html.TextBox("Qty", productData.Qty.ToString(), new { @class = "form-control" })
+                @Html.ValidationMessage("Qty", "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label class="control-label col-md-2">商品編號</label>
+            <div class="col-md-10">
+                @Html.TextBox("PID", "", new { @class = "form-control" })
+                @Html.ValidationMessage("PID", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">訂購單價</label>
+            <div class="col-md-10">
+                @Html.TextBox("Price", "", new { @class = "form-control" })
+                @Html.ValidationMessage("Price", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">訂購數量</label>
+            <div class="col-md-10">
+                @Html.TextBox("Qty", "", new { @class = "form-control" })
+                @Html.ValidationMessage("Qty", "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="新增" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}

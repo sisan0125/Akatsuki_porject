@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="953d5660b5354b83866e3e808bd70573" Name="Diagram1">
+        <EntityTypeShape EntityType="WMSModel.Categories" Width="1.5" PointX="7.125" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Customers" Width="1.5" PointX="1" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Import" Width="1.5" PointX="5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Payment" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.POD" Width="1.5" PointX="5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.POM" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Products" Width="1.5" PointX="7.125" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Ship" Width="1.5" PointX="5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.SOD" Width="1.5" PointX="5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.SOM" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Storage" Width="1.5" PointX="11.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.StorageProduct" Width="1.5" PointX="9.125" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Suppliers" Width="1.5" PointX="1" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="WMSModel.CustomersSOM" />
+        <AssociationConnector Association="WMSModel.SuppliersPOM" />
+        <AssociationConnector Association="WMSModel.PODImport" />
+        <AssociationConnector Association="WMSModel.CategoriesProducts" />
+        <AssociationConnector Association="WMSModel.PaymentSOM" />
+        <AssociationConnector Association="WMSModel.PaymentPOM" />
+        <AssociationConnector Association="WMSModel.ShipSOD" />
+        <AssociationConnector Association="WMSModel.ProductsStorageProduct" />
+        <AssociationConnector Association="WMSModel.POMPOD" />
+        <AssociationConnector Association="WMSModel.SOMSOD" />
+        <AssociationConnector Association="WMSModel.StorageProductStorage" />
+        <AssociationConnector Association="WMSModel.SODProducts" />
+        <AssociationConnector Association="WMSModel.PODProducts" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

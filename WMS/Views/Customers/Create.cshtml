@@ -1,0 +1,123 @@
+﻿@model WMS.Models.Customers
+
+@{
+    ViewBag.Title = "新增客戶";
+}
+
+
+<body style="background-color: PowderBlue; ">
+</body>
+
+<h2>新增客戶</h2>
+<div>@Html.ActionLink("返回客戶主頁", "Index")</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶編號</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CUID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CUID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶名稱</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶簡稱</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Abbreviation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Abbreviation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶地址</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶收貨地址</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReceiptAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReceiptAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶電話</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶統一編號</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VAT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VAT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶聯絡人</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶聯絡人電話</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CPphone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CPphone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">客戶負責人</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PIC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PIC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">建檔日期</label>
+            <div class="col-md-10">
+                @{
+                    DateTime today = DateTime.Today;
+                    string formattedToday = today.ToString("yyyy-MM-dd");
+                }
+                <input type="date" class="form-control" id="bDate" name="bDate" value="@formattedToday" required="required" />
+                @Html.ValidationMessageFor(model => model.bDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="新增" class="btn btn-default" />
+        </div>
+
+    </div>
+}

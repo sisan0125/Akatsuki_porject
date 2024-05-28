@@ -1,0 +1,810 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'C:\SLNWMS\WMS\APP_DATA\WMS.MDF.dbo.AccountPassword' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="AccountPassword">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CID" />
+          </Key>
+          <Property Name="CID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CUID" />
+          </Key>
+          <Property Name="CUID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Abbreviation" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="ReceiptAddress" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Phone" Type="char" MaxLength="16" Nullable="false" />
+          <Property Name="VAT" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="CP" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="CPphone" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="PIC" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Import">
+          <Key>
+            <PropertyRef Name="IMID" />
+          </Key>
+          <Property Name="IMID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="POID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="PID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Qty" Type="decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="SID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PMID" />
+          </Key>
+          <Property Name="PMID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Term" Type="nchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POD">
+          <Key>
+            <PropertyRef Name="POID" />
+          </Key>
+          <Property Name="POID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="PID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="Qty" Type="decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POM">
+          <Key>
+            <PropertyRef Name="POID" />
+          </Key>
+          <Property Name="POID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="SUID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="PMID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Paydate" Type="date" />
+          <Property Name="TAMT" Type="decimal" Precision="7" Scale="0" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Adescription" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="Qty" Type="decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="SafeQty" Type="decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ship">
+          <Key>
+            <PropertyRef Name="SHID" />
+          </Key>
+          <Property Name="SHID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="SOID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="PID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Qty" Type="decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="SID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SOD">
+          <Key>
+            <PropertyRef Name="SOID" />
+          </Key>
+          <Property Name="SOID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="PID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="Qty" Type="decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SOM">
+          <Key>
+            <PropertyRef Name="SOID" />
+          </Key>
+          <Property Name="SOID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="CUID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="PMID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="EDL" Type="date" Nullable="false" />
+          <Property Name="DLYaddress" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Storage">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StorageProduct">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="PID" Type="char" MaxLength="3" />
+          <Property Name="Qty" Type="decimal" Precision="2" Scale="0" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="SUID" />
+          </Key>
+          <Property Name="SUID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Abbreviation" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="VAT" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="CP" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="CPphone" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="PIC" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="bDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="WMSModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Import" EntityType="Self.Import" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="POD" EntityType="Self.POD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="POM" EntityType="Self.POM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ship" EntityType="Self.Ship" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SOD" EntityType="Self.SOD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SOM" EntityType="Self.SOM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Storage" EntityType="Self.Storage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StorageProduct" EntityType="Self.StorageProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountPassword" EntityType="Self.AccountPassword" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AccountPassword].[Username] AS [Username], 
+    [AccountPassword].[Password] AS [Password]
+    FROM [dbo].[AccountPassword] AS [AccountPassword]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CID" />
+          </Key>
+          <Property Name="CID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Products" Relationship="WMSModel.CategoriesProducts" FromRole="Categories" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CUID" />
+          </Key>
+          <Property Name="CUID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Abbreviation" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReceiptAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="VAT" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CP" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CPphone" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PIC" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SOM" Relationship="WMSModel.CustomersSOM" FromRole="Customers" ToRole="SOM" />
+        </EntityType>
+        <EntityType Name="Import">
+          <Key>
+            <PropertyRef Name="IMID" />
+          </Key>
+          <Property Name="IMID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="POID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Qty" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="SID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="POD" Relationship="WMSModel.PODImport" FromRole="Import" ToRole="POD" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PMID" />
+          </Key>
+          <Property Name="PMID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Term" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SOM" Relationship="WMSModel.PaymentSOM" FromRole="Payment" ToRole="SOM" />
+          <NavigationProperty Name="POM" Relationship="WMSModel.PaymentPOM" FromRole="Payment" ToRole="POM" />
+        </EntityType>
+        <EntityType Name="POD">
+          <Key>
+            <PropertyRef Name="POID" />
+          </Key>
+          <Property Name="POID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="Qty" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Import" Relationship="WMSModel.PODImport" FromRole="POD" ToRole="Import" />
+          <NavigationProperty Name="POM" Relationship="WMSModel.POMPOD" FromRole="POD" ToRole="POM" />
+          <NavigationProperty Name="Products" Relationship="WMSModel.PODProducts" FromRole="POD" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="POM">
+          <Key>
+            <PropertyRef Name="POID" />
+          </Key>
+          <Property Name="POID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SUID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PMID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Paydate" Type="DateTime" Precision="0" />
+          <Property Name="TAMT" Type="Decimal" Precision="7" Scale="0" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Suppliers" Relationship="WMSModel.SuppliersPOM" FromRole="POM" ToRole="Suppliers" />
+          <NavigationProperty Name="Payment" Relationship="WMSModel.PaymentPOM" FromRole="POM" ToRole="Payment" />
+          <NavigationProperty Name="POD" Relationship="WMSModel.POMPOD" FromRole="POM" ToRole="POD" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="Qty" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="SafeQty" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Categories" Relationship="WMSModel.CategoriesProducts" FromRole="Products" ToRole="Categories" />
+          <NavigationProperty Name="StorageProduct" Relationship="WMSModel.ProductsStorageProduct" FromRole="Products" ToRole="StorageProduct" />
+          <NavigationProperty Name="SOD" Relationship="WMSModel.SODProducts" FromRole="Products" ToRole="SOD" />
+          <NavigationProperty Name="POD" Relationship="WMSModel.PODProducts" FromRole="Products" ToRole="POD" />
+        </EntityType>
+        <EntityType Name="Ship">
+          <Key>
+            <PropertyRef Name="SHID" />
+          </Key>
+          <Property Name="SHID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SOID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Qty" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="SID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SOD" Relationship="WMSModel.ShipSOD" FromRole="Ship" ToRole="SOD" />
+        </EntityType>
+        <EntityType Name="SOD">
+          <Key>
+            <PropertyRef Name="SOID" />
+          </Key>
+          <Property Name="SOID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="Qty" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Ship" Relationship="WMSModel.ShipSOD" FromRole="SOD" ToRole="Ship" />
+          <NavigationProperty Name="SOM" Relationship="WMSModel.SOMSOD" FromRole="SOD" ToRole="SOM" />
+          <NavigationProperty Name="Products" Relationship="WMSModel.SODProducts" FromRole="SOD" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="SOM">
+          <Key>
+            <PropertyRef Name="SOID" />
+          </Key>
+          <Property Name="SOID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CUID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PMID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EDL" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DLYaddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Customers" Relationship="WMSModel.CustomersSOM" FromRole="SOM" ToRole="Customers" />
+          <NavigationProperty Name="Payment" Relationship="WMSModel.PaymentSOM" FromRole="SOM" ToRole="Payment" />
+          <NavigationProperty Name="SOD" Relationship="WMSModel.SOMSOD" FromRole="SOM" ToRole="SOD" />
+        </EntityType>
+        <EntityType Name="Storage">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="StorageProduct" Relationship="WMSModel.StorageProductStorage" FromRole="Storage" ToRole="StorageProduct" />
+        </EntityType>
+        <EntityType Name="StorageProduct">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Qty" Type="Decimal" Precision="2" Scale="0" />
+          <NavigationProperty Name="Products" Relationship="WMSModel.ProductsStorageProduct" FromRole="StorageProduct" ToRole="Products" />
+          <NavigationProperty Name="Storage" Relationship="WMSModel.StorageProductStorage" FromRole="StorageProduct" ToRole="Storage" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="SUID" />
+          </Key>
+          <Property Name="SUID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Abbreviation" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VAT" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CP" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CPphone" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PIC" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="bDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="POM" Relationship="WMSModel.SuppliersPOM" FromRole="Suppliers" ToRole="POM" />
+        </EntityType>
+        <EntityContainer Name="WMSEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" />
+          <EntitySet Name="Import" EntityType="Self.Import" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" />
+          <EntitySet Name="POD" EntityType="Self.POD" />
+          <EntitySet Name="POM" EntityType="Self.POM" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Ship" EntityType="Self.Ship" />
+          <EntitySet Name="SOD" EntityType="Self.SOD" />
+          <EntitySet Name="SOM" EntityType="Self.SOM" />
+          <EntitySet Name="Storage" EntityType="Self.Storage" />
+          <EntitySet Name="StorageProduct" EntityType="Self.StorageProduct" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+          <AssociationSet Name="CustomersSOM" Association="WMSModel.CustomersSOM">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="SOM" EntitySet="SOM" />
+          </AssociationSet>
+          <AssociationSet Name="SuppliersPOM" Association="WMSModel.SuppliersPOM">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="POM" EntitySet="POM" />
+          </AssociationSet>
+          <AssociationSet Name="PODImport" Association="WMSModel.PODImport">
+            <End Role="POD" EntitySet="POD" />
+            <End Role="Import" EntitySet="Import" />
+          </AssociationSet>
+          <AssociationSet Name="CategoriesProducts" Association="WMSModel.CategoriesProducts">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="PaymentSOM" Association="WMSModel.PaymentSOM">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="SOM" EntitySet="SOM" />
+          </AssociationSet>
+          <AssociationSet Name="PaymentPOM" Association="WMSModel.PaymentPOM">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="POM" EntitySet="POM" />
+          </AssociationSet>
+          <AssociationSet Name="ShipSOD" Association="WMSModel.ShipSOD">
+            <End Role="Ship" EntitySet="Ship" />
+            <End Role="SOD" EntitySet="SOD" />
+          </AssociationSet>
+          <AssociationSet Name="ProductsStorageProduct" Association="WMSModel.ProductsStorageProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="StorageProduct" EntitySet="StorageProduct" />
+          </AssociationSet>
+          <AssociationSet Name="POMPOD" Association="WMSModel.POMPOD">
+            <End Role="POM" EntitySet="POM" />
+            <End Role="POD" EntitySet="POD" />
+          </AssociationSet>
+          <AssociationSet Name="SOMSOD" Association="WMSModel.SOMSOD">
+            <End Role="SOM" EntitySet="SOM" />
+            <End Role="SOD" EntitySet="SOD" />
+          </AssociationSet>
+          <AssociationSet Name="StorageProductStorage" Association="WMSModel.StorageProductStorage">
+            <End Role="StorageProduct" EntitySet="StorageProduct" />
+            <End Role="Storage" EntitySet="Storage" />
+          </AssociationSet>
+          <AssociationSet Name="SODProducts" Association="WMSModel.SODProducts">
+            <End Role="SOD" EntitySet="SOD" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="PODProducts" Association="WMSModel.PODProducts">
+            <End Role="POD" EntitySet="POD" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <EntitySet Name="AccountPassword" EntityType="WMSModel.AccountPassword" />
+        </EntityContainer>
+        <Association Name="CustomersSOM">
+          <End Type="WMSModel.Customers" Role="Customers" Multiplicity="1" />
+          <End Type="WMSModel.SOM" Role="SOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CUID" />
+            </Principal>
+            <Dependent Role="SOM">
+              <PropertyRef Name="CUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SuppliersPOM">
+          <End Type="WMSModel.Suppliers" Role="Suppliers" Multiplicity="1" />
+          <End Type="WMSModel.POM" Role="POM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SUID" />
+            </Principal>
+            <Dependent Role="POM">
+              <PropertyRef Name="SUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PODImport">
+          <End Type="WMSModel.POD" Role="POD" Multiplicity="1" />
+          <End Type="WMSModel.Import" Role="Import" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POD">
+              <PropertyRef Name="POID" />
+            </Principal>
+            <Dependent Role="Import">
+              <PropertyRef Name="POID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CategoriesProducts">
+          <End Type="WMSModel.Categories" Role="Categories" Multiplicity="1" />
+          <End Type="WMSModel.Products" Role="Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PaymentSOM">
+          <End Type="WMSModel.Payment" Role="Payment" Multiplicity="1" />
+          <End Type="WMSModel.SOM" Role="SOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="PMID" />
+            </Principal>
+            <Dependent Role="SOM">
+              <PropertyRef Name="PMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PaymentPOM">
+          <End Type="WMSModel.Payment" Role="Payment" Multiplicity="1" />
+          <End Type="WMSModel.POM" Role="POM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="PMID" />
+            </Principal>
+            <Dependent Role="POM">
+              <PropertyRef Name="PMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ShipSOD">
+          <End Type="WMSModel.Ship" Role="Ship" Multiplicity="*" />
+          <End Type="WMSModel.SOD" Role="SOD" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="SOD">
+              <PropertyRef Name="SOID" />
+            </Principal>
+            <Dependent Role="Ship">
+              <PropertyRef Name="SOID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductsStorageProduct">
+          <End Type="WMSModel.Products" Role="Products" Multiplicity="0..1" />
+          <End Type="WMSModel.StorageProduct" Role="StorageProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="StorageProduct">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POMPOD">
+          <End Type="WMSModel.POM" Role="POM" Multiplicity="1" />
+          <End Type="WMSModel.POD" Role="POD" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="POD">
+              <PropertyRef Name="POID" />
+            </Principal>
+            <Dependent Role="POM">
+              <PropertyRef Name="POID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SOMSOD">
+          <End Type="WMSModel.SOM" Role="SOM" Multiplicity="1" />
+          <End Type="WMSModel.SOD" Role="SOD" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="SOD">
+              <PropertyRef Name="SOID" />
+            </Principal>
+            <Dependent Role="SOM">
+              <PropertyRef Name="SOID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StorageProductStorage">
+          <End Type="WMSModel.StorageProduct" Role="StorageProduct" Multiplicity="1" />
+          <End Type="WMSModel.Storage" Role="Storage" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="SID" />
+            </Principal>
+            <Dependent Role="StorageProduct">
+              <PropertyRef Name="SID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SODProducts">
+          <End Type="WMSModel.SOD" Role="SOD" Multiplicity="*" />
+          <End Type="WMSModel.Products" Role="Products" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="SOD">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PODProducts">
+          <End Type="WMSModel.POD" Role="POD" Multiplicity="*" />
+          <End Type="WMSModel.Products" Role="Products" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="POD">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AccountPassword">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WMSModelStoreContainer" CdmEntityContainer="WMSEntities2">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="WMSModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CID" ColumnName="CID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="WMSModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CUID" ColumnName="CUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ReceiptAddress" ColumnName="ReceiptAddress" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="CP" ColumnName="CP" />
+                <ScalarProperty Name="CPphone" ColumnName="CPphone" />
+                <ScalarProperty Name="PIC" ColumnName="PIC" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Import">
+            <EntityTypeMapping TypeName="WMSModel.Import">
+              <MappingFragment StoreEntitySet="Import">
+                <ScalarProperty Name="IMID" ColumnName="IMID" />
+                <ScalarProperty Name="POID" ColumnName="POID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payment">
+            <EntityTypeMapping TypeName="WMSModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="PMID" ColumnName="PMID" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POD">
+            <EntityTypeMapping TypeName="WMSModel.POD">
+              <MappingFragment StoreEntitySet="POD">
+                <ScalarProperty Name="POID" ColumnName="POID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POM">
+            <EntityTypeMapping TypeName="WMSModel.POM">
+              <MappingFragment StoreEntitySet="POM">
+                <ScalarProperty Name="POID" ColumnName="POID" />
+                <ScalarProperty Name="SUID" ColumnName="SUID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="PMID" ColumnName="PMID" />
+                <ScalarProperty Name="Paydate" ColumnName="Paydate" />
+                <ScalarProperty Name="TAMT" ColumnName="TAMT" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="WMSModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CID" ColumnName="CID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Adescription" ColumnName="Adescription" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="SafeQty" ColumnName="SafeQty" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ship">
+            <EntityTypeMapping TypeName="WMSModel.Ship">
+              <MappingFragment StoreEntitySet="Ship">
+                <ScalarProperty Name="SHID" ColumnName="SHID" />
+                <ScalarProperty Name="SOID" ColumnName="SOID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOD">
+            <EntityTypeMapping TypeName="WMSModel.SOD">
+              <MappingFragment StoreEntitySet="SOD">
+                <ScalarProperty Name="SOID" ColumnName="SOID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOM">
+            <EntityTypeMapping TypeName="WMSModel.SOM">
+              <MappingFragment StoreEntitySet="SOM">
+                <ScalarProperty Name="SOID" ColumnName="SOID" />
+                <ScalarProperty Name="CUID" ColumnName="CUID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="PMID" ColumnName="PMID" />
+                <ScalarProperty Name="EDL" ColumnName="EDL" />
+                <ScalarProperty Name="DLYaddress" ColumnName="DLYaddress" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Storage">
+            <EntityTypeMapping TypeName="WMSModel.Storage">
+              <MappingFragment StoreEntitySet="Storage">
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StorageProduct">
+            <EntityTypeMapping TypeName="WMSModel.StorageProduct">
+              <MappingFragment StoreEntitySet="StorageProduct">
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="WMSModel.Suppliers">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="SUID" ColumnName="SUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="CP" ColumnName="CP" />
+                <ScalarProperty Name="CPphone" ColumnName="CPphone" />
+                <ScalarProperty Name="PIC" ColumnName="PIC" />
+                <ScalarProperty Name="bDate" ColumnName="bDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountPassword">
+            <EntityTypeMapping TypeName="WMSModel.AccountPassword">
+              <MappingFragment StoreEntitySet="AccountPassword">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram DiagramId="ce8defb9fe6b4a799fe8324fea1002e6" Name="Diagram1" ZoomLevel="116">
+        <EntityTypeShape EntityType="WMSModel.Categories" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Customers" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Import" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Payment" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.POD" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.POM" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Products" Width="1.5" PointX="10.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Ship" Width="1.5" PointX="6" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.SOD" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.SOM" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Storage" Width="1.5" PointX="15" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.StorageProduct" Width="1.5" PointX="12.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Suppliers" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="WMSModel.CustomersSOM" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.SuppliersPOM" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.PODImport" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.CategoriesProducts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.PaymentSOM" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.PaymentPOM" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.ShipSOD" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.ProductsStorageProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.POMPOD" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.SOMSOD" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.StorageProductStorage" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.SODProducts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.PODProducts" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WMSModel.AccountPassword" Width="1.5" PointX="0.75" PointY="8.75" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

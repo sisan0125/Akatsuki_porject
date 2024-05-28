@@ -1,0 +1,106 @@
+﻿@model IEnumerable<WMS.Models.Customers>
+
+@{
+    ViewBag.Title = "客戶名單";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+
+
+    .border-th {
+        border: 1px solid black;
+    }
+</style>
+
+<body style="background-color: PowderBlue; ">
+
+</body>
+
+<h2>客戶</h2>
+<p>@Html.ActionLink("新增客戶", "Create") | @Html.ActionLink("返回首頁", "ContentsIndex", "Home")</p>
+
+<table class="table">
+    <tr>
+        <th style="border: 1px solid black;">
+            編號
+        </th>
+        <th style="border: 1px solid black;">
+            客戶名稱
+        </th>
+        <th style="border: 1px solid black;">
+            客戶簡稱
+        </th>
+        <th style="border: 1px solid black;">
+            客戶地址
+        </th>
+        <th style="border: 1px solid black;">
+            收貨地址
+        </th>
+        <th style="border: 1px solid black;">
+            客戶電話
+        </th>
+        <th style="border: 1px solid black;">
+            統一編號
+        </th>
+        <th style="border: 1px solid black;">
+            聯絡人
+        </th>
+        <th style="border: 1px solid black;">
+            聯絡人電話
+        </th>
+        <th style="border: 1px solid black;">
+            負責人
+        </th>
+        <th style="border: 1px solid black;"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.CUID)
+            </td>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.Abbreviation)
+            </td>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.ReceiptAddress)
+            </td>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.VAT)
+            </td>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.CP)
+            </td>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.CPphone)
+            </td>
+            <td class="border-th">
+                @Html.DisplayFor(modelItem => item.PIC)
+            </td>
+            <td class="border-th">
+                @Html.ActionLink("編輯", "Edit", new { id = item.CUID }) |
+                @Html.ActionLink("刪除", "Delete", new { id = item.CUID }, new { onclick = "return confirm('確定要刪除嗎?')" })
+            </td>
+        </tr>
+    }
+</table>

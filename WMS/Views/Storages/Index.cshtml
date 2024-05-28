@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WMS.Models.Storage>
+
+@{
+    ViewBag.Title = "貨架";
+}
+
+<h2>貨架</h2>
+<p>@Html.ActionLink("新增貨架", "Create") | @Html.ActionLink("返回首頁", "ContentsIndex", "Home")</p>
+
+<table class="table">
+    <tr>
+        <th>
+            貨架名稱
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SID)
+            </td>
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.SID }) |
+                @Html.ActionLink("刪除", "Delete", new { id = item.SID }, new { onclick = "return confirm('確定要刪除嗎?')" })
+            </td>
+        </tr>
+    }
+
+
+</table>

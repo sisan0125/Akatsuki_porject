@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "客戶登入";
+}
+<body style="background-color: PowderBlue; ">
+
+    <h2>客戶登入</h2>
+
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.Label("帳號：", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("帳號", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("密碼：", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Password("密碼", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="登入" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
+    @if (ViewBag.IsLogin != null && ViewBag.IsLogin == true)
+    {
+        <div class="alert alert-danger">
+            登入失敗，請檢查帳號和密碼。
+        </div>
+    }
+</body>
